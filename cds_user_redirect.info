@@ -1,0 +1,6 @@
+name = "CDS User Redirect"
+description = "Direct new users to their proper location after registering"
+package = CDS
+core = 7.x
+php = 5.2
+

@@ -1,0 +1,20 @@
+<?php
+
+function cds_user_redirect_form_alter(&$form, &$form_state, $form_id) {
+// Redirect new users to price sheet download page after registering
+if($form_id == 'user_register_form' && strpos($_SERVER['HTTP_REFERER'], 
+'/resources/price-sheets') > 0 && !isset($_GET['destination'])) {
+	$redirect = array('query' => array('destination' => 'node/50'));
+    drupal_goto('user/register', $redirect);
+    }
+}
+
+
+function cds_user_redirect_preprocess_page(&$variables) {
+	// Redirect logged in users to price sheet download page but not from edit page
+	if($variables['node']->nid == '96' && user_is_logged_in() && !strpos($_SERVER['REQUEST_URI'], 'edit')) {
+		drupal_goto('node/50');
+	}
+}
+
+
